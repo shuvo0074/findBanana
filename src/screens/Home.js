@@ -53,29 +53,34 @@ const HomeScreen = () => {
         </View>
 
       </View>
-      <DataTable
-        style={{
-          justifyContent: 'flex-start',
-          width: dimensions.fullWidth - 20
-        }}
-      >
-        <DataTable.Header>
-          <DataTable.Title style={{ flex: 6 }} numberOfLines={2}>Name</DataTable.Title>
-          <DataTable.Title style={{ flex: 2, justifyContent: 'center' }} numberOfLines={2} >Rank</DataTable.Title>
-          <DataTable.Title style={{ flex: 5, justifyContent: 'center' }} numberOfLines={2}  >Number of bananas</DataTable.Title>
-          <DataTable.Title style={{ flex: 4, justifyContent: 'center' }} textStyle={{ textAlign: 'center' }} numberOfLines={3} numeric>Is Searched User?</DataTable.Title>
-        </DataTable.Header>
-        {
-          rankList.map((item, index) =>
-            <ListItem
-              item={item}
-              key={index}
-              rank={item.rank}
-              isSearchedUser={currentVal === item.name}
-            />
-          )
-        }
-      </DataTable>
+      {
+        rankList.length && currentVal.length ?
+          <DataTable
+            style={{
+              justifyContent: 'flex-start',
+              width: dimensions.fullWidth - 20
+            }}
+          >
+            <DataTable.Header>
+              <DataTable.Title style={{ flex: 6 }} numberOfLines={2}>Name</DataTable.Title>
+              <DataTable.Title style={{ flex: 2, justifyContent: 'center' }} numberOfLines={2} >Rank</DataTable.Title>
+              <DataTable.Title style={{ flex: 5, justifyContent: 'center' }} numberOfLines={2}  >Number of bananas</DataTable.Title>
+              <DataTable.Title style={{ flex: 4, justifyContent: 'center' }} textStyle={{ textAlign: 'center' }} numberOfLines={3} numeric>Is Searched User?</DataTable.Title>
+            </DataTable.Header>
+            {
+              rankList.map((item, index) =>
+                <ListItem
+                  item={item}
+                  key={index}
+                  rank={item.rank}
+                  isSearchedUser={currentVal === item.name}
+                />
+              )
+            }
+          </DataTable>
+          : null
+      }
+
     </View>
   );
 };
