@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TextInput, StatusBar, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TextInput, StatusBar, Image, TouchableOpacity, ScrollView } from 'react-native';
 
 import { ListItem, EmptyList } from '../components';
 import useRankController from '../view-controllers/useRankController';
@@ -19,6 +19,7 @@ const HomeScreen = () => {
           source={ASSETS.search}
           style={styles.flagIcon}
         />
+        {/* text input and search button */}
         <View
           style={styles.btnContainer}
         >
@@ -55,29 +56,32 @@ const HomeScreen = () => {
       </View>
       {
         rankList.length && currentVal.length ?
-          <DataTable
-            style={{
-              justifyContent: 'flex-start',
-              width: dimensions.fullWidth - 20
-            }}
-          >
-            <DataTable.Header>
-              <DataTable.Title style={{ flex: 6 }} numberOfLines={2}>Name</DataTable.Title>
-              <DataTable.Title style={{ flex: 2, justifyContent: 'center' }} numberOfLines={2} >Rank</DataTable.Title>
-              <DataTable.Title style={{ flex: 5, justifyContent: 'center' }} numberOfLines={2}  >Number of bananas</DataTable.Title>
-              <DataTable.Title style={{ flex: 4, justifyContent: 'center' }} textStyle={{ textAlign: 'center' }} numberOfLines={3} numeric>Is Searched User?</DataTable.Title>
-            </DataTable.Header>
-            {
-              rankList.map((item, index) =>
-                <ListItem
-                  item={item}
-                  key={index}
-                  rank={item.rank}
-                  isSearchedUser={currentVal === item.name}
-                />
-              )
-            }
-          </DataTable>
+          <ScrollView>
+            <DataTable
+              style={{
+                justifyContent: 'flex-start',
+                width: dimensions.fullWidth - 20,
+                paddingBottom: 30 // to show last item of the table
+              }}
+            >
+              <DataTable.Header>
+                <DataTable.Title style={{ flex: 6 }} numberOfLines={2}>Name</DataTable.Title>
+                <DataTable.Title style={{ flex: 2, justifyContent: 'center' }} numberOfLines={2} >Rank</DataTable.Title>
+                <DataTable.Title style={{ flex: 5, justifyContent: 'center' }} numberOfLines={2}  >Number of bananas</DataTable.Title>
+                <DataTable.Title style={{ flex: 4, justifyContent: 'center' }} textStyle={{ textAlign: 'center' }} numberOfLines={3} numeric>Is Searched User?</DataTable.Title>
+              </DataTable.Header>
+              {
+                rankList.map((item, index) =>
+                  <ListItem
+                    item={item}
+                    key={index}
+                    rank={item.rank}
+                    isSearchedUser={currentVal === item.name}
+                  />
+                )
+              }
+            </DataTable>
+          </ScrollView>
           : null
       }
 
@@ -100,12 +104,14 @@ const styles = StyleSheet.create({
   },
   background: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.primary,
   },
   headingView: {
     backgroundColor: colors.primary,
     padding: styleGuide.padding,
-    alignItems: 'center'
+    alignItems: 'center',
+    height: dimensions.fullHeight / 2 - 50,
+    justifyContent: 'flex-end'
   },
   addressListView: {
     marginVertical: styleGuide.padding,
@@ -128,8 +134,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   flagIcon: {
-    height: 80,
-    width: 80,
+    height: dimensions.fullWidth / 2.5,
+    width: dimensions.fullWidth / 2.5,
+    marginBottom: dimensions.fullWidth / 4.5
   },
   searchIcon: {
     height: 22,
