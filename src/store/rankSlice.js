@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   userList: [],
   currentVal: '',
-  rankList: []
+  rankList: [],
+  showAlert: false
 };
 
 export const rankSlice = createSlice({
@@ -18,14 +19,17 @@ export const rankSlice = createSlice({
     },
     setRankList: (state, action) => {
       state.rankList = action.payload
+    },
+    toggleAlert: (state) => {
+      state.showAlert = !state.showAlert
     }
   },
 });
 
-const { setUserList, updateCurrentValue, setRankList } = rankSlice.actions;
+const { setUserList, updateCurrentValue, setRankList, toggleAlert } = rankSlice.actions;
 
 export const RankAction = {
-  setUserList, updateCurrentValue, setRankList
+  setUserList, updateCurrentValue, setRankList, toggleAlert
 };
 
 export default rankSlice.reducer;

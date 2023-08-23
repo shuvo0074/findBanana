@@ -5,10 +5,10 @@ import { ListItem, EmptyList } from '../components';
 import useRankController from '../view-controllers/useRankController';
 import { SHADOW_STYLE, colors, dimensions, fontSizes, fontWeights, styleGuide } from '../styles/globalStyles';
 import { ASSETS } from '../assets';
-import { DataTable } from 'react-native-paper';
+import { DataTable, Modal, Portal } from 'react-native-paper';
 
 const HomeScreen = () => {
-  const { onEditValue, rankList, currentVal } = useRankController();
+  const { onEditValue, handleAlert, rankList, currentVal, showAlert } = useRankController();
   const [userNameTxt, setUserNameTxt] = useState('')
 
   return (
@@ -21,7 +21,7 @@ const HomeScreen = () => {
         />
         {/* text input and search button */}
         <View
-          style={styles.btnContainer}
+          style={styles.btnContainer} // The text input and the button should be in the center vertical of the screen
         >
           <View
             style={styles.headerBtn}
@@ -84,7 +84,23 @@ const HomeScreen = () => {
           </ScrollView>
           : null
       }
+      <Portal>
 
+        <Modal
+          visible={showAlert}
+          onDismiss={handleAlert}
+          contentContainerStyle={{
+            backgroundColor: colors.white,
+            padding: styleGuide.padding,
+            width: dimensions.fullWidth / 1.4,
+            alignSelf: 'center',
+            borderRadius: styleGuide.radius
+          }}
+        >
+          <EmptyList />
+
+        </Modal>
+      </Portal>
     </View>
   );
 };
@@ -112,9 +128,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: dimensions.fullHeight / 2 - 50,
     justifyContent: 'flex-end'
-  },
-  addressListView: {
-    marginVertical: styleGuide.padding,
   },
   inputStyle: {
     fontSize: fontSizes.fs20,

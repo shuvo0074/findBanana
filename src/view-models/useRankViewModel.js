@@ -5,17 +5,22 @@ const useRankViewModel = () => {
   const {
     rankList,
     currentVal,
-    userList
+    userList,
+    showAlert
   } = useSelector(state => state.rank);
 
   const {
-    setUserList, updateCurrentValue, setRankList
+    setUserList, updateCurrentValue, setRankList, toggleAlert
   } = RankAction;
 
   return {
     rankList,
     currentVal,
     userList,
+    showAlert,
+    handleAlert: _ => {
+      dispatch(toggleAlert())
+    },
     updateUserList: (payload) => {
       dispatch(setUserList(payload))
     },

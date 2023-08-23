@@ -4,11 +4,14 @@ const dataList = require('../assets/data/userData.json')
 
 
 const useRankController = () => {
-  const { currentVal, rankList, userList, updateRankList, updateUserList, onEditValue, removeRankList } = useRankViewModel();
+  const { currentVal, rankList, userList, showAlert, updateRankList, updateUserList, onEditValue, removeRankList, handleAlert } = useRankViewModel();
 
   useEffect(() => {
     if (currentVal.length && userList.length) {
       const selectedItem = userList.find(i => i.name === currentVal)
+      if (!selectedItem) {
+        handleAlert()
+      }
       if (selectedItem?.rank > 10)
         updateRankList([...userList.slice(0, 9), selectedItem]);
       else
@@ -29,6 +32,8 @@ const useRankController = () => {
   return {
     currentVal,
     rankList,
+    showAlert,
+    handleAlert,
     onEditValue,
   };
 };
