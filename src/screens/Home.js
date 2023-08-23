@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.fs20,
     fontWeight: fontWeights.fw200,
     flex: 1,
-    color: colors.light2,
+    color: colors.white,
     textAlign: 'center'
   },
   btnContainer: {
@@ -109,7 +109,8 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.fs20,
     fontWeight: fontWeights.fw200,
     height: 45,
-    width: dimensions.fullWidth / 2 - styleGuide.padding * 6,
+    width: dimensions.fullWidth / 2 - styleGuide.padding * 7,
+    color: colors.white
   },
   headerBtn: {
     color: colors.white,
